@@ -67,61 +67,25 @@
         action.__raw = "function() require('snacks').picker.undo() end";
         mode = "n";
       }
+      {
+        key = "gd";
+        action.__raw = "function() require('snacks').picker.lsp_definitions() end";
+        mode = "n";
+      }
+      {
+        key = "gr";
+        action.__raw = "function() require('snacks').picker.lsp_references() end";
+        mode = "n";
+      }
     ];
 
     plugins = {
-      rustaceanvim = {
+      lsp = {
         enable = true;
-        settings = {
-          server = {
-            standalone = false;
-
-            default_settings = {
-              rust-analyzer = {
-                linkedProjects = [
-                  "Cargo.toml"
-                  "compiler/rustc_codegen_cranelift/Cargo.toml"
-                  "compiler/rustc_codegen_gcc/Cargo.toml"
-                  "library/Cargo.toml"
-                  "src/bootstrap/Cargo.toml"
-                  "src/tools/rust-analyzer/Cargo.toml"
-                ];
-                server = {
-                  extraEnv = {
-                    RUSTC = "/home/raphael/personal/projects/rust/build/host/stage0/bin/rustc";
-                    CARGO = "/home/raphael/personal/projects/rust/build/host/stage0/bin/cargo";
-                  };
-                };
-                check = {
-                  invocationStrategy = "once";  
-                  overrideCommand = [  
-                    "python3" "x.py" "check" "--json-output" "--build-dir" "build-rust-analyzer"  
-                  ];
-                };
-                rustfmt = {
-                  overrideCommand = [ "/home/raphael/personal/projects/rust/build/host/rustfmt/bin/rustfmt" "--edition=2024" ];
-                };
-                procMacro = {  
-                  enable = true;  
-                  server = "/home/raphael/personal/projects/rust/build/host/stage0/libexec/rust-analyzer-proc-macro-srv";  
-                };
-                rustc.source = "./Cargo.toml";
-                cargo = {  
-                  sysrootSrc = "./library";
-                  extraEnv = {  
-                    RUSTC_BOOTSTRAP = "1";  
-                  };  
-                  buildScripts = {  
-                    enable = true;  
-                    invocationStrategy = "once";  
-                    overrideCommand = [  
-                      "python3" "x.py" "check" "--json-output" "--compile-time-deps" "--build-dir" "build-rust-analyzer"  
-                    ];  
-                  };
-                };
-              };
-            };
-          };
+        servers.rust_analyzer = {
+          enable = true;
+          installCargo = false;
+          installRustc = false;
         };
       };
 
