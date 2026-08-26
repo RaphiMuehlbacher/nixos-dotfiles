@@ -10,6 +10,7 @@
       "zen.glance.enabled" = false;
       "zen.urlbar.behavior" = "float";
       "zen.tabs.show-newtab-vertical" = false;
+      "browser.ctrlTab.sortByRecentlyUsed" = true;
 
       "theme.better_find_bar.vertical_position" = "top";
       "theme.better_find_bar.instant_animations" = true;
